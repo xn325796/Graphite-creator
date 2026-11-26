@@ -1,0 +1,192 @@
+/* ============================================================
+   设计令牌（单一来源）
+   颜色 / 字体 / 间距 / 圆角 / 控件高度 / 层级 / 动效
+   面板与控件只引用语义变量，不再写死颜色与像素。
+   ============================================================ */
+
+:root {
+  color-scheme: dark;
+
+  /* ---- 表面 ---- */
+  --bg-app: #0b0f12;
+  --bg-chrome: #10151a;      /* 标题栏 / 状态栏 */
+  --bg-panel: #14191e;       /* 侧栏 / 检查器 */
+  --bg-elev: #1a2128;        /* 浮层 / 工具栏按钮底 */
+  --bg-elev-2: #222b34;      /* hover 与选中底 */
+  --bg-field: #0d1216;
+  --bg-canvas: #0f1317;
+  --bg-hover: rgba(255, 255, 255, 0.055);
+  --bg-active: rgba(255, 255, 255, 0.09);
+
+  /* ---- 描边 ---- */
+  --border: #262f38;
+  --border-strong: #3a4652;
+  --border-subtle: #1c242b;
+
+  /* ---- 文本 ---- */
+  --text: #e8ecef;
+  --text-2: #9aa5af;
+  --text-3: #6b7683;
+  --text-inverse: #062521;
+
+  /* ---- 品牌 / 语义色 ---- */
+  --accent: #5eead4;
+  --accent-strong: #2dd4bf;
+  --accent-ink: #052e2b;
+  --accent-soft: rgba(94, 234, 212, 0.14);
+  --accent-line: rgba(94, 234, 212, 0.38);
+  --danger: #f87171;
+  --danger-soft: rgba(248, 113, 113, 0.14);
+  --warn: #fbbf24;
+  --warn-soft: rgba(251, 191, 36, 0.14);
+  --ok: #34d399;
+  --ok-soft: rgba(52, 211, 153, 0.14);
+
+  /* ---- 字体 ---- */
+  --font-ui: "Inter", "Segoe UI", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  --font-mono: "Cascadia Mono", "JetBrains Mono", Consolas, ui-monospace, monospace;
+  --fs-2xs: 10px;
+  --fs-xs: 11px;
+  --fs-sm: 12px;
+  --fs-md: 13px;
+  --fs-lg: 15px;
+  --fs-xl: 18px;
+  --lh-tight: 1.25;
+  --lh: 1.45;
+
+  /* ---- 间距 ---- */
+  --sp-1: 2px;
+  --sp-2: 4px;
+  --sp-3: 6px;
+  --sp-4: 8px;
+  --sp-5: 12px;
+  --sp-6: 16px;
+  --sp-7: 20px;
+  --sp-8: 24px;
+
+  /* ---- 圆角 ---- */
+  --r-xs: 3px;
+  --r-sm: 5px;
+  --r-md: 7px;
+  --r-lg: 10px;
+  --r-xl: 14px;
+  --r-pill: 999px;
+
+  /* ---- 控件与布局高度 ---- */
+  --h-titlebar: 36px;
+  --h-toolbar: 44px;
+  --h-tabs: 38px;
+  --h-status: 26px;
+  --h-control-xs: 22px;
+  --h-control-sm: 26px;
+  --h-control-md: 30px;
+  --h-row: 30px;
+  --w-sidebar: 232px;
+  --w-inspector: 328px;
+
+  /* ---- 阴影 / 焦点 ---- */
+  --shadow-pop: 0 12px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-modal: 0 24px 64px rgba(0, 0, 0, 0.6);
+  --ring: 0 0 0 1px var(--accent-strong), 0 0 0 3px rgba(94, 234, 212, 0.18);
+
+  /* ---- 滚动条 / 选区 / 棋盘格 / 画布点阵 ---- */
+  --scroll-thumb: #333d47;
+  --scroll-thumb-hover: #48545f;
+  --sel-bg: rgba(94, 234, 212, 0.3);
+  --checker-a: #151b21;
+  --checker-b: #10151a;
+  --canvas-dot: #1b2127;
+
+  /* ---- 层级 ---- */
+  --z-sticky: 10;
+  --z-resizer: 20;
+  --z-drawer: 30;
+  --z-popover: 70;
+  --z-toast: 75;
+  --z-modal: 80;
+  --z-tooltip: 90;
+
+  /* ---- 动效 ---- */
+  --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --dur-fast: 100ms;
+  --dur: 150ms;
+  --dur-slow: 220ms;
+
+  /* ============================================================
+     兼容别名：旧面板仍引用 --ar-*，逐步迁移后可删除
+     ============================================================ */
+  --ar-bg: var(--bg-app);
+  --ar-surface: var(--bg-panel);
+  --ar-panel: var(--bg-elev);
+  --ar-input: var(--bg-field);
+  --ar-border: var(--border);
+  --ar-border-hi: var(--border-strong);
+  --ar-text: var(--text);
+  --ar-muted: var(--text-2);
+  --ar-dim: var(--text-3);
+  --ar-accent: var(--accent);
+  --ar-accent-strong: var(--accent-strong);
+  --ar-accent-bg: #1f5c50;
+  --ar-accent-soft: var(--accent-soft);
+  --ar-danger: var(--danger);
+  --ar-danger-soft: var(--danger-soft);
+  --ar-warn: var(--warn);
+  --ar-warn-soft: var(--warn-soft);
+  --ar-radius: var(--r-md);
+  --ar-pill: var(--r-pill);
+  --ar-shadow: var(--shadow-pop);
+  --ar-ring: var(--ring);
+  --ar-ease: var(--ease);
+}
+
+/* ============================================================
+   浅色主题：只覆盖语义变量，组件样式无需改动
+   <html data-theme="light"> 由 lib/theme.js 切换
+   ============================================================ */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --bg-app: #eef1f4;
+  --bg-chrome: #e7ecf1;
+  --bg-panel: #f8fafb;
+  --bg-elev: #ffffff;
+  --bg-elev-2: #e6ecf2;
+  --bg-field: #ffffff;
+  --bg-canvas: #eef1f4;
+  --bg-hover: rgba(15, 30, 42, 0.06);
+  --bg-active: rgba(15, 30, 42, 0.1);
+
+  --border: #d2dae2;
+  --border-strong: #aebbc7;
+  --border-subtle: #e2e8ee;
+
+  --text: #17212a;
+  --text-2: #4a5765;
+  --text-3: #6f7d8b;
+  --text-inverse: #ffffff;
+
+  --accent: #0f766e;
+  --accent-strong: #0d9488;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(13, 148, 136, 0.13);
+  --accent-line: rgba(13, 148, 136, 0.42);
+  --danger: #c62828;
+  --danger-soft: rgba(198, 40, 40, 0.12);
+  --warn: #a16207;
+  --warn-soft: rgba(161, 98, 7, 0.14);
+  --ok: #047857;
+  --ok-soft: rgba(4, 120, 87, 0.13);
+
+  --shadow-pop: 0 12px 32px rgba(20, 35, 48, 0.16), 0 2px 8px rgba(20, 35, 48, 0.1);
+  --shadow-modal: 0 24px 64px rgba(20, 35, 48, 0.24);
+  --ring: 0 0 0 1px var(--accent-strong), 0 0 0 3px rgba(13, 148, 136, 0.16);
+
+  --scroll-thumb: #c3cdd6;
+  --scroll-thumb-hover: #a7b4c0;
+  --sel-bg: rgba(13, 148, 136, 0.22);
+  --checker-a: #e9edf1;
+  --checker-b: #dfe5ea;
+  --canvas-dot: #d3dae1;
+
+  --ar-accent-bg: #ccfbf1;
+}

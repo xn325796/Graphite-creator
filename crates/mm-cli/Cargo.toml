@@ -1,0 +1,22 @@
+[package]
+name = "mm-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Mindustry ModMaker 的 headless 命令行入口（dev.modmaker.cli 的等价移植）"
+
+[lib]
+name = "mm_cli"
+path = "src/lib.rs"
+
+[[bin]]
+name = "modmaker"
+path = "src/main.rs"
+
+[dependencies]
+# 2026-11-13 用户显式授权的唯一第三方例外，只在本 crate 使用（见迁移方案 §P4）。
+clap = { workspace = true }
+mm-io = { path = "../mm-io" }
+mm-json = { path = "../mm-json" }
+mm-schema = { path = "../mm-schema" }
+mm-validate = { path = "../mm-validate" }

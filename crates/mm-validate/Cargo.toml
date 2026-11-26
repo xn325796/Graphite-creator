@@ -1,0 +1,11 @@
+[package]
+name = "mm-validate"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+mm-json = { path = "../mm-json" }
+mm-model = { path = "../mm-model" }
+mm-schema = { path = "../mm-schema" }
+mm-fmt = { path = "../mm-fmt" }

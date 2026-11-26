@@ -1,0 +1,216 @@
+/* 科技树工作区：树导航 · 画布 · 研究节点编辑器 */
+
+.tech {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  display: flex;
+  overflow: hidden;
+  background: var(--bg-canvas);
+}
+
+/* ===== 左：树导航 ===== */
+.tech-rail {
+  flex: none;
+  width: 232px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 0 var(--sp-2) var(--sp-2);
+  background: var(--bg-panel);
+  border-right: 1px solid var(--border);
+}
+
+.cosmos-rail-head {
+  padding: var(--sp-4) var(--sp-3) var(--sp-3);
+  color: var(--text);
+  font-size: var(--fs-md);
+  font-weight: 600;
+}
+.cosmos-search { padding: 0 var(--sp-2) var(--sp-3); }
+.cosmos-actions {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-2) var(--sp-1);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.tech-rail-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 0 var(--sp-1);
+  overflow-y: auto;
+}
+
+.tech-root-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  width: 100%;
+  height: 30px;
+  padding: 0 var(--sp-3);
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--text-2);
+  font-family: inherit;
+  font-size: var(--fs-xs);
+  text-align: left;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.tech-root-row:hover { background: var(--bg-hover); color: var(--text); }
+.tech-root-row.active {
+  background: var(--bg-elev-2);
+  color: var(--text);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+.tech-root-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.tech-divider {
+  margin: var(--sp-3) var(--sp-2) var(--sp-1);
+  color: var(--text-3);
+  font-size: var(--fs-2xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ===== 中：画布 ===== */
+.tech-canvas {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 40%, var(--bg-panel), var(--bg-app) 70%);
+  cursor: grab;
+}
+.tech-canvas:active { cursor: grabbing; }
+
+.tech-world { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+.tech-edges { position: absolute; left: 0; top: 0; pointer-events: none; }
+.tech-edges path { fill: none; stroke: var(--border-strong); stroke-width: 2; }
+.tech-rubber { stroke: var(--accent); stroke-width: 2; stroke-dasharray: 5 4; }
+
+.tech-node {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-md);
+  background: var(--bg-elev);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.tech-node:hover { border-color: var(--accent-strong); }
+.tech-node.picked {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(94, 234, 212, 0.25);
+}
+.tech-node.problem { border-color: var(--warn); }
+.tech-node.vanilla { opacity: 0.85; }
+
+.tech-node-face {
+  position: absolute;
+  inset: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: var(--r-sm);
+}
+.tech-node-face img { max-width: 40px; max-height: 40px; image-rendering: pixelated; }
+.tech-node-letter { color: #0b0f12; font-size: var(--fs-xl); font-weight: 700; }
+.tech-node-label {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 4px);
+  transform: translateX(-50%);
+  max-width: 110px;
+  padding: 2px 6px;
+  overflow: hidden;
+  border-radius: var(--r-xs);
+  background: rgba(11, 15, 18, 0.85);
+  color: var(--text);
+  font-size: var(--fs-2xs);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.tech-port {
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--accent-strong);
+  border-radius: 50%;
+  background: var(--bg-panel);
+  opacity: 0.6;
+  cursor: crosshair;
+}
+.tech-node:hover .tech-port { opacity: 1; }
+
+.tech-tools {
+  position: absolute;
+  left: var(--sp-4);
+  bottom: var(--sp-4);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-1) var(--sp-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: rgba(20, 25, 30, 0.92);
+  box-shadow: var(--shadow-pop);
+}
+.tech-zoom { min-width: 38px; color: var(--text-2); font-size: var(--fs-xs); text-align: center; }
+.tech-hint {
+  position: absolute;
+  right: var(--sp-4);
+  bottom: var(--sp-4);
+  color: var(--text-3);
+  font-size: var(--fs-2xs);
+  pointer-events: none;
+}
+
+/* ===== 右：研究节点编辑器 ===== */
+.tech-editor {
+  flex: none;
+  width: clamp(280px, 24vw, 360px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-4);
+  overflow-y: auto;
+  background: var(--bg-panel);
+  border-left: 1px solid var(--border);
+}
+.tech-ed-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  padding-bottom: var(--sp-2);
+}
+.tech-ed-title {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--text);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tech-editor :deep(.fld-row) { justify-content: flex-start; }
+.tech-editor :deep(.fld-row .ar-field) { flex: 1; min-width: 0; }
+.tech-obj-row { display: flex; align-items: center; gap: var(--sp-2); }
+.tech-obj-row :deep(.ar-select) { width: 110px; flex: none; }
+.tech-obj-row :deep(.ar-field) { flex: 1; min-width: 0; }

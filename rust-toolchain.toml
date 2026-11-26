@@ -1,0 +1,7 @@
+# 2026-11-17 重建。依据：`.cargo/config.toml` 首行注释「rust-toolchain.toml 把 host 钉在
+# stable-gnu」——本机默认工具链是 stable-msvc，必须在这里显式选中 windows-gnu host，
+# `[build] target = "x86_64-pc-windows-gnu"` 与 MSYS2 gcc 链接器配置才能成套生效。
+# 目标三元组与 host 相同，无需额外 `targets` 条目。
+
+[toolchain]
+channel = "stable-x86_64-pc-windows-gnu"

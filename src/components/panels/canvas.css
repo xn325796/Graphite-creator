@@ -1,0 +1,149 @@
+/* 画布工作区：板卡图 */
+
+.cv {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-canvas);
+}
+
+.cv-toolbar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  height: 44px;
+  padding: 0 var(--sp-5);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.cv-style { color: var(--text-3); font-size: var(--fs-2xs); letter-spacing: 0.06em; text-transform: uppercase; }
+.cv-tools { display: flex; align-items: center; gap: var(--sp-2); margin-left: auto; }
+.cv-zoom { min-width: 44px; color: var(--text-2); font-size: var(--fs-xs); text-align: center; font-variant-numeric: tabular-nums; }
+
+.cv-canvas {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  cursor: grab;
+  background: var(--bg-canvas) radial-gradient(circle, var(--canvas-dot) 1px, transparent 1px) 0 0 / 24px 24px;
+}
+.cv-canvas:active { cursor: grabbing; }
+.cv-canvas.plain { background-image: none; }
+
+.cv-world { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+.cv-edges {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  overflow: visible;
+  pointer-events: none;
+}
+.cv-edge { fill: none; stroke: var(--border-strong); stroke-width: 2; pointer-events: none; }
+.cv-edge.selected { stroke: var(--accent); }
+.cv-edge-pick { fill: none; stroke: transparent; stroke-width: 12; pointer-events: stroke; cursor: pointer; }
+.cv-arrow { fill: var(--border-strong); pointer-events: none; }
+.cv-arrow.selected { fill: var(--accent); }
+.cv-edge-label { fill: var(--text-2); font-size: var(--fs-xs); pointer-events: none; }
+.cv-pending { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 5 4; pointer-events: none; }
+.cv-dot { fill: var(--bg-elev); stroke: var(--accent); stroke-width: 1.5; pointer-events: auto; cursor: move; }
+
+.cv-card {
+  position: absolute;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--bg-elev);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  cursor: default;
+  user-select: none;
+}
+.cv-card.selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(94, 234, 212, 0.25), 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.cv-head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  height: 32px;
+  padding: 0 var(--sp-3);
+  border-radius: var(--r-md) var(--r-md) 0 0;
+}
+.cv-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: #0e1114;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cv-type {
+  padding: 0 var(--sp-2);
+  border: 1px solid rgba(14, 17, 20, 0.35);
+  border-radius: var(--r-sm);
+  color: rgba(14, 17, 20, 0.75);
+  font-size: var(--fs-2xs);
+}
+
+.cv-row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  height: 32px;
+  padding: 0 var(--sp-3);
+}
+.cv-row-label {
+  flex: none;
+  width: 66px;
+  overflow: hidden;
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cv-row-val {
+  flex: 1;
+  min-width: 0;
+  height: 22px;
+  padding: 0 var(--sp-2);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--r-xs);
+  background: var(--bg-field);
+  color: var(--text);
+  font-size: var(--fs-xs);
+  line-height: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cv-port {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--border-strong);
+  cursor: crosshair;
+}
+.cv-port.out { background: var(--text-3); }
+
+.cv-empty { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.cv-hint {
+  flex: none;
+  padding: var(--sp-2) var(--sp-5);
+  border-top: 1px solid var(--border-subtle);
+  color: var(--text-3);
+  font-size: var(--fs-2xs);
+}

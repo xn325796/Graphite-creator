@@ -1,0 +1,9 @@
+[package]
+name = "mm-schema"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+mm-json = { path = "../mm-json" }
+thiserror = { workspace = true }

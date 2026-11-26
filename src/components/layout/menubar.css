@@ -1,0 +1,107 @@
+/* 标题栏 + 主菜单 + 工具栏 */
+
+.titlebar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  height: var(--h-titlebar);
+  padding-left: var(--sp-3);
+  background: var(--bg-chrome);
+  border-bottom: 1px solid var(--border-subtle);
+  cursor: default;
+}
+
+.titlebar-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  margin-right: var(--sp-2);
+  color: var(--accent);
+  pointer-events: none;
+}
+.titlebar-brand svg { width: 18px; height: 18px; }
+
+.menubar {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  height: 100%;
+}
+
+.menubar-item {
+  height: 26px;
+  padding: 0 var(--sp-3);
+  border-radius: var(--r-sm);
+  color: var(--text-2);
+  font-family: inherit;
+  font-size: var(--fs-sm);
+  white-space: nowrap;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.menubar-item:hover,
+.menubar-item.open { background: var(--bg-hover); color: var(--text); }
+.menubar-item:focus-visible { outline: none; box-shadow: var(--ring); }
+
+.titlebar-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0 var(--sp-5);
+  overflow: hidden;
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.window-controls {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  margin-left: auto;
+}
+
+.win-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  color: var(--text-2);
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.win-btn svg { width: 12px; height: 12px; }
+.win-btn:hover { background: var(--bg-hover); color: var(--text); }
+.win-btn:active { background: var(--bg-active); }
+.win-close:hover { background: #c42b1c; color: #fff; }
+
+.toolbar {
+  flex: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: var(--h-toolbar);
+  padding: var(--sp-2) var(--sp-4);
+  background: var(--bg-chrome);
+  border-bottom: 1px solid var(--border);
+}
+
+.toolbar-search { width: 240px; }
+
+.tb-divider {
+  flex: none;
+  width: 1px;
+  height: 20px;
+  margin: 0 var(--sp-2);
+  background: var(--border);
+}
+
+.tb-spacer { flex: 1 1 auto; }
+
+@media (max-width: 1080px) {
+  .titlebar-title { display: none; }
+  .toolbar-search { width: 180px; }
+}

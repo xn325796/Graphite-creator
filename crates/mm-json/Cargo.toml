@@ -1,0 +1,9 @@
+[package]
+name = "mm-json"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+# 2026-11-25 冗余清理：thiserror 声明移除——本 crate 的 HjsonError 是手写
+# Display + Error（src/reader.rs），源码零 thiserror 使用，属幽灵依赖。
+[dependencies]

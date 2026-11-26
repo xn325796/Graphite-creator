@@ -1,0 +1,13 @@
+[package]
+name = "mm-io"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+mm-json = { path = "../mm-json" }
+mm-model = { path = "../mm-model" }
+mm-schema = { path = "../mm-schema" }
+mm-fmt = { path = "../mm-fmt" }
+mm-validate = { path = "../mm-validate" }
+zip = { version = "9.5.1", default-features = false, features = ["deflate"] }

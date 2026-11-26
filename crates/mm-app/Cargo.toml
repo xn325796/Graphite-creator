@@ -1,0 +1,22 @@
+[package]
+name = "mm-app"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+# 决策 D5（P5 计划 §三，已签字）：本 crate **零 tauri 依赖**。
+# Java 的 `dev.modmaker.ui` 包里「与 GUI 无关的状态」（撤销历史、选中记录）在这里是纯 Rust，
+# 于是它们能进 `cargo test --workspace` 离线跑，回归不需要开窗。
+# `tauri` 只出现在 `src-tauri/`，跨界 event 由那一层负责。
+[dependencies]
+mm-model = { path = "../mm-model" }
+# M2（G1）：`ProjectController` 直接用到这些下游 crate——
+# mm-json 是字段值（Java `JsonElement`）、mm-schema 是 `SchemaRegistry`/`FieldDef`、
+# mm-fmt 是 `ContentType`/`Ids`/`NameRules`/`ReferenceOps` 等规则、
+# mm-io 是 `ProjectIo`/`ProjectFactory`/`LinkGraph`/`AutoLayout`/`ImportReport`、
+# mm-validate 是 `Issue`。Java `ProjectController.java:3-30` 的 import 清单即此依赖清单。
+mm-json = { path = "../mm-json" }
+mm-schema = { path = "../mm-schema" }
+mm-fmt = { path = "../mm-fmt" }
+mm-io = { path = "../mm-io" }
+mm-validate = { path = "../mm-validate" }

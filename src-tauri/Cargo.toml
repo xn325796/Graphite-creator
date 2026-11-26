@@ -1,0 +1,45 @@
+[package]
+name = "graphitecreator"
+version = "0.1.0"
+description = "A Tauri App"
+authors = ["you"]
+edition = "2024"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+# The `_lib` suffix may seem redundant but it is necessary
+# to make the lib name unique and wouldn't conflict with the bin name.
+# This seems to be only an issue on Windows, see https://github.com/rust-lang/cargo/issues/8519
+name = "graphitecreator_lib"
+# 2026-11-17 迁移实测：模板原值 ["staticlib", "cdylib", "rlib"] 在 x86_64-pc-windows-gnu 上
+# 让 GNU ld 撞 PE 导出表 65535 上限（ld.exe: error: export ordinal too large: 89535）。
+# Desktop 入口只走 rlib 静态链接，P5/P6 不做 mobile，故改为仅 rlib。
+crate-type = ["rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# 2026-11-17 迁移：壳要接的七个领域 crate（与 ModCreator/src-tauri 同一依赖面，
+# 命令面没有任何一条需要 mm-project；该死成员 crate 已于 2026-11-25 删除）。
+# 全部走 workspace 路径依赖，零新增第三方 crate。
+# > 2026-11-20 M7a 就地更正：七个 → 八个。tech_forest 的 research 摘要要用
+# > mm_fmt::tech::read 归一（"item/amount" 文本表），规则只在领域层单份实现，
+# > 壳直接依赖 mm-fmt，不在 DTO 层另写一条解析口径。
+mm-app = { path = "../crates/mm-app" }
+mm-fmt = { path = "../crates/mm-fmt" }
+mm-io = { path = "../crates/mm-io" }
+mm-json = { path = "../crates/mm-json" }
+mm-layout = { path = "../crates/mm-layout" }
+mm-model = { path = "../crates/mm-model" }
+mm-schema = { path = "../crates/mm-schema" }
+mm-validate = { path = "../crates/mm-validate" }
+
+# 模板自带的 tauri-plugin-opener 已删：壳命令面用不到「打开外部链接/文件夹」，
+# 少一个第三方依赖就少一个依赖豁免面。模板的 [profile.release] 收敛到根工作区清单
+# （且按桥接层的 catch_unwind 需要去掉 panic = "abort"）。

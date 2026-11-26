@@ -1,0 +1,46 @@
+# 工作区根清单（2026-11-17 迁移到 GraphiteCreator 壳）。
+# 9 个领域 crate 全部以 `version/edition/license.workspace = true` 继承本文件；
+# mm-cli 的 clap 与 mm-schema 的 thiserror 走 `[workspace.dependencies]`。
+# > 2026-11-25 冗余清理：原第 10 个成员 mm-project（5 行聚合门面）全仓零消费者、
+# > 零测试，已删除；mm-json 曾声明 thiserror 但源码零使用（手写 HjsonError），
+# > 该幽灵依赖一并移除，账本同步更正。
+# **第三方依赖账本（2026-11-20 更正）**：领域层不止 clap/thiserror——`mm-io` 还有
+# `zip`（解包/打包模组，`export/mod_exporter.rs`、`package/reader.rs` 直接使用，
+# 版本在 `crates/mm-io/Cargo.toml` 里独立声明，未进 workspace.dependencies）。
+# 壳层（`src-tauri`）另有 tauri/serde/serde_json/tauri-build。除此以外零新增第三方 crate。
+# 方向纪律（方案文档 §三 D5）：`crates/**` 一律不依赖 tauri，tauri 只出现在 src-tauri。
+
+[workspace]
+# edition 2024 要求 resolver 3。
+resolver = "3"
+members = [
+    "crates/mm-app",
+    "crates/mm-cli",
+    "crates/mm-fmt",
+    "crates/mm-io",
+    "crates/mm-json",
+    "crates/mm-layout",
+    "crates/mm-model",
+    "crates/mm-schema",
+    "crates/mm-validate",
+    "src-tauri",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+
+[workspace.dependencies]
+# clap 是用户显式授权的唯一第三方例外，只被 mm-cli 使用。
+clap = { version = "4", features = ["derive"] }
+# thiserror 只被 mm-schema 使用（mm-json 的声明于 2026-11-25 作为幽灵依赖移除）。
+thiserror = "2"
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
+strip = true
+# **故意不写 `panic = "abort"`**：src-tauri 的 actor 线程（bridge.rs）用
+# `std::panic::catch_unwind` 兜住领域层 panic，abort 会让该防线失效。

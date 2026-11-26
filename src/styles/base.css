@@ -1,0 +1,287 @@
+/* ============================================================
+   基础样式：重置、排版、焦点、滚动条、共享行/标签类
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-app);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: var(--fs-md);
+  line-height: var(--lh);
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+input,
+textarea {
+  cursor: text;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+select,
+button {
+  cursor: pointer;
+}
+
+img,
+svg {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+p,
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+}
+
+button {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 1px;
+}
+
+::selection {
+  background: var(--sel-bg);
+}
+
+/* 可复制区域：日志与显式标记的文本 */
+.log-drawer,
+.selectable {
+  cursor: text;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* ---- 滚动条：桌面壳观感 ---- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scroll-thumb);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scroll-thumb-hover);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* ---- 键盘提示 ---- */
+kbd,
+.kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border: 1px solid var(--border-strong);
+  border-bottom-width: 2px;
+  border-radius: var(--r-xs);
+  background: var(--bg-elev);
+  color: var(--text-2);
+  font-family: var(--font-ui);
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   共享微布局（检查器 / 科技树 / 弹窗表单）
+   ============================================================ */
+
+.insp-group {
+  margin: var(--sp-5) 0 var(--sp-2);
+  color: var(--text-3);
+  font-size: var(--fs-2xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.fld-row,
+.fld-ar-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-height: var(--h-row);
+}
+
+.fld-row {
+  justify-content: space-between;
+}
+
+.fld-row > .ar-field,
+.fld-ar-row > .ar-field {
+  flex: 1;
+  min-width: 0;
+}
+
+.fld-label {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.fld-zh {
+  color: var(--text);
+  font-size: var(--fs-sm);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fld-n {
+  color: var(--text-3);
+  font-size: var(--fs-2xs);
+  font-family: var(--font-mono);
+}
+
+.fld-ar-label {
+  width: 84px;
+  flex: none;
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fld-static {
+  flex: 1;
+  min-width: 0;
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.grid-empty {
+  width: 100%;
+  padding: var(--sp-8) var(--sp-6);
+  color: var(--text-3);
+  font-size: var(--fs-sm);
+  text-align: center;
+  white-space: pre-line;
+}
+
+/* 通用空态块 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: var(--sp-8);
+  color: var(--text-3);
+  font-size: var(--fs-sm);
+  text-align: center;
+}
+
+.empty-state strong {
+  color: var(--text-2);
+  font-size: var(--fs-md);
+  font-weight: 500;
+}
+
+/* 屏幕阅读器专用文本 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================================================
+   减少动态效果：跟随系统设置（figcraft 同口径）
+   过渡与动画压到临界值而非直接删除，避免依赖 transitionend 的逻辑悬空。
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   最小化界面（Ctrl+\）：只留标题栏与工作区
+   规则放在全局层，才能命中 MenuBar / 面板子组件里的元素。
+   ============================================================ */
+/* 组件样式带 scoped 属性选择器（0,2,0），这里用 .app-shell.ui-minimal 提到 0,3,0 才能压过 */
+.app-shell.ui-minimal .toolbar,
+.app-shell.ui-minimal .workspace-tabs,
+.app-shell.ui-minimal .statusbar,
+.app-shell.ui-minimal .log-drawer,
+.app-shell.ui-minimal .pane-sidebar,
+.app-shell.ui-minimal .inspector-wrap,
+.app-shell.ui-minimal .pane-resizer {
+  display: none;
+}
